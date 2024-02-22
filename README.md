@@ -1,1 +1,1 @@
-# Aswinpt28-Drug-Interaction-Checker-Frontend
+# Drug-Interaction-Checker-Frontend
