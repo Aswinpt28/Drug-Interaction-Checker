@@ -1,0 +1,14 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar {
+  background-color: #f8f8f8;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}

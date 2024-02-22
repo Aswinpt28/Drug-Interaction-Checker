@@ -1,0 +1,56 @@
+.admin-container {
+  max-width: 600px; /* Increase the max-width */
+  width: 80%; /* Adjust the width */
+  height: 400px; /* Adjust the height */
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.admin-title {
+  color: #23386f;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.admin-btn {
+  background-color: #23386f;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.admin-btn:hover {
+  background-color: #1a2c5c;
+}
+
+.admin-container .back-link {
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  color: #23386f;
+  text-decoration: none !important;
+}
+
+.admin-container .back-link:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 175px;
+  height: auto;
+}

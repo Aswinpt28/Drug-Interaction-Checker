@@ -1,0 +1,171 @@
+.footer {
+  background-color: #ffffff;
+  color: #2c2c2c;
+  padding: 40px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+}
+
+.column2 {
+  flex: 1;
+  display: flex;
+  margin-top: -60px;
+}
+.content-container {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-links {
+  margin-right: 10px;
+}
+
+.h3 {
+  color: #191919;
+  font-size: 20px;
+}
+
+.logo3 {
+  width: 200px;
+  height: 35px;
+  margin: 0px 0px 7px 2px;
+}
+
+.mk {
+  text-align: justify;
+  font-size: small;
+  margin-right: -260px;
+}
+
+.p {
+  font-family: "Play", sans-serif;
+  font-size: 0.8rem;
+  color: #2c2c2c;
+  text-decoration: none;
+}
+
+.k {
+  font-family: "Play", sans-serif;
+  font-size: 0.8rem;
+  color: #2c2c2c;
+  text-decoration: none !important;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.quick-links {
+  font-family: "Play", sans-serif;
+  font-size: 0.8rem;
+  color: #2c2c2c;
+  text-decoration: none !important;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.l {
+  font-family: "Play", sans-serif;
+  font-size: 0.8rem;
+  color: #2c2c2c;
+  text-decoration: none !important;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.k:hover {
+  text-decoration: underline;
+}
+
+.hr {
+  border-top: 1px solid #2c2c2c;
+  margin: 20px 0;
+}
+
+.contact-info {
+  margin-left: -113px;
+}
+
+/* .address-container {
+  margin-top: 31px;
+} */
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #edede9;
+}
+
+.footer-social-media {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  margin-top: -19px;
+  margin-bottom: -102px;
+  padding: 8px 0px 15px 0px;
+  gap: 10px;
+}
+
+.footer-social-media a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-left: 10px;
+}
+
+/* .facebook,
+.twitter,
+.whatsapp,
+.instagram {
+  background-size: cover;
+  width: 40px;
+  height: 80px;
+} */
+
+.address-container {
+  display: flex;
+  align-items: center;
+}
+
+.address-icon {
+  color: #2c2c2c;
+  margin-right: 5px;
+  margin-left: 114px;
+  margin-top: 10px;
+}
+
+.email-container {
+  display: flex;
+  align-items: center;
+}
+
+.email-icon {
+  color: #2c2c2c;
+  margin-right: 5px;
+  margin-left: 114px;
+  margin-top: 10px;
+}
+
+.phone-container {
+  display: flex;
+  align-items: center;
+}
+
+.phone-icon {
+  color: #2c2c2c;
+  margin-right: 5px;
+  margin-left: 114px;
+  margin-top: 10px;
+}

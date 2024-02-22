@@ -1,0 +1,48 @@
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #edede9;
+}
+
+.footer-social-media {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px 15px 10px;
+  gap: 10px;
+}
+
+.footer-social-media a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-left: 10px;
+}
+
+.facebook,
+.twitter,
+.whatsapp,
+.instagram {
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+}
+
+.facebook {
+  background-image: url("../assets/facebook.png");
+}
+
+.twitter {
+  background-image: url("../assets/twitter.png");
+}
+
+.whatsapp {
+  background-image: url("../assets/whatsapp.png");
+}
+
+.instagram {
+  background-image: url("../assets/instagram.png");
+}
