@@ -43,12 +43,12 @@ const Footer = () => {
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <div className="column2" style={{ margin: "0px 5px 0px 0px" }}>
+        <div className="column2" style={{ margin: "-7px 5px 0px 0px" }}>
           <div className="quick-links"></div>
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <div className="column2" style={{ margin: "-59px 5px 0px 593px" }}>
+        <div className="column2" style={{ margin: "-59px -25px 0px 620px" }}>
           <div className="quick-links">
             <h3 className="h3">Quick Links</h3>
             <div>

@@ -37,7 +37,7 @@ const AuthForm = () => {
   };
 
   const handleLoginSubmit = async (data) => {
-    const url = "http://localhost:8000/auth/user/login";
+    const url = "http://localhost:3000/auth/user/login";
 
     try {
       const response = await axios.post(url, data);
@@ -56,7 +56,7 @@ const AuthForm = () => {
   };
 
   const handleSignupSubmit = async (data) => {
-    const url = "http://localhost:8000/auth/register";
+    const url = "http://localhost:3000/auth/register";
 
     try {
       const response = await axios.post(url, data);

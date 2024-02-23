@@ -14,7 +14,7 @@ const AdminForm = () => {
   const handleLogin = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/auth/admin/login",
+        "http://localhost:3000/auth/admin/login",
         data
       );
 
