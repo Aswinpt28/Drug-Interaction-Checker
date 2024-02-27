@@ -57,7 +57,13 @@ const Navbar = ({ isAuthenticated, handleLogout, handleSignIn, userName }) => {
               margin: "0px 0px 10px 5px",
             }}
           />
-          <span style={{ marginLeft: "250px" }}>DRUGS</span>
+          <Link
+            to="/details/:id"
+            className="link"
+            style={{ marginLeft: "250px" }}
+          >
+            DRUGS
+          </Link>
         </Link>
         <Link to="/check" className="link" style={linkStyle}>
           INTERACTION CHECKER

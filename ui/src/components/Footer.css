@@ -172,3 +172,17 @@
   margin-left: 114px;
   margin-top: 19px;
 }
+
+.instagram :hover {
+  color: #d62976;
+}
+
+.facebook :hover {
+  color: #3b5998;
+}
+.whatsapp :hover {
+  color: #25d366;
+}
+.twitter :hover {
+  color: #8899ac;
+}

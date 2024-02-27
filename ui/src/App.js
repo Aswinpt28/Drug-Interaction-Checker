@@ -7,6 +7,7 @@ import Interaction from "./Pages/Interaction";
 import Sideeffects from "./Pages/Sideeffects";
 import Pill from "./Pages/Pill";
 import NewDrugs from "./Pages/NewDrugs";
+import Details from "./Pages/MedicineDetailsPage";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/side" element={<Sideeffects />} />
         <Route path="/pill" element={<Pill />} />
         <Route path="/newdrugs" element={<NewDrugs />} />
+        <Route path="/details/:id" element={<Details />} />
       </Routes>
     </Router>
   );

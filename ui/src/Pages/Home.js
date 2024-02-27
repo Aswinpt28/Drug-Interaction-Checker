@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -8,8 +8,6 @@ import logo2 from "../assets/preventive.png";
 import logo3 from "../assets/microscope.png";
 import logo4 from "../assets/cardiogram.png";
 import logo5 from "../assets/pill.png";
-import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,12 +24,6 @@ const Home = () => {
 
   const handleSignUp = () => {
     navigate("/login");
-  };
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearch = () => {
-    console.log(`Searching for: ${searchQuery}`);
   };
 
   const logosWithText = [
@@ -147,40 +139,7 @@ const Home = () => {
             </button>
           ))}
         </div>
-        <div style={{ marginBottom: "20px", marginTop: "30px" }}>
-          <TextField
-            placeholder="Search Medicines..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <SearchIcon style={{ marginRight: "8px", color: "#9e9e9e" }} />
-              ),
-              style: {
-                padding: "10px",
-                fontSize: "16px",
-                width: "270px",
-                borderRadius: "10px",
-                height: "40px",
-                marginRight: "8px",
-              },
-            }}
-          />
-          <button
-            onClick={handleSearch}
-            style={{
-              padding: "10px 20px",
-              fontSize: "16px",
-              borderRadius: "10px",
-              backgroundColor: "#23408E",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Search
-          </button>
-        </div>
+
         <h2
           style={{ color: "#23408E", marginBottom: "20px", marginTop: "50px" }}
         >
