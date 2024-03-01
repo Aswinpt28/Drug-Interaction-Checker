@@ -1,16 +1,36 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Container, Button, Alert } from "react-bootstrap";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
+import "./side.css";
+import doc from "../assets/doctor.png";
 
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState("Paracetamol");
   const [sideEffects, setSideEffects] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const userToken = localStorage.getItem("userToken");
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    navigate("/");
+  };
+
+  const handleSignIn = () => {
+    navigate("/login");
+  };
+
+  const handleSignUp = () => {
+    navigate("/login");
+  };
 
   const handleSearch = async () => {
     try {
-      const apiKey = "P30dxdlyu6Cuhgi4s94o56DhEWziKaXvLQUekNQA"; // Replace with your actual OpenFDA API key
+      const apiKey = "P30dxdlyu6Cuhgi4s94o56DhEWziKaXvLQUekNQA";
 
       const response = await axios.get(
         `https://api.fda.gov/drug/event.json?api_key=${apiKey}&search=patient.drug.medicinalproduct:${searchTerm}`
@@ -52,22 +72,50 @@ const SearchForm = () => {
   };
 
   return (
-    <Container>
-      <Row className="justify-content-md-center mt-5">
-        <Col xs={12} md={6}>
-          <Form>
-            <TextField
-              label="Enter Medicine Name"
-              variant="outlined"
-              fullWidth
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{ marginBottom: 2 }}
-            />
-            <Button variant="primary" onClick={handleSearch} fullWidth>
-              Search Side Effects
-            </Button>
-          </Form>
+    <div>
+      <Navbar
+        isAuthenticated={userToken}
+        handleLogout={handleLogout}
+        handleSignIn={handleSignIn}
+        handleSignUp={handleSignUp}
+      />
+      <div
+        style={{
+          backgroundImage: `url(${doc})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          minHeight: "calc(70vh - 60px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          color: "#000",
+          marginTop: "65px",
+        }}
+      >
+        <Container
+          style={{
+            marginTop: "10px",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <TextField
+            style={{
+              marginBottom: "8px",
+            }}
+            label="Enter Medicine Name"
+            variant="outlined"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <Button variant="outlined" color="inherit" onClick={handleSearch}>
+            Search
+          </Button>
 
           {error && <Alert variant="danger">{error}</Alert>}
 
@@ -86,9 +134,10 @@ const SearchForm = () => {
               </ul>
             </div>
           )}
-        </Col>
-      </Row>
-    </Container>
+        </Container>
+      </div>
+      <Footer />
+    </div>
   );
 };
 

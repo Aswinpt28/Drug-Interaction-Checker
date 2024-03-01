@@ -1,0 +1,30 @@
+/* side.css */
+
+body {
+  font-family: "Arial", sans-serif;
+}
+
+.containerl {
+  background-color: #fff;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  .col {
+    margin-top: 20px;
+  }
+}
+
+.bg-image {
+  background-image: url("../assets/doctor.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}

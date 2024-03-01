@@ -4,7 +4,7 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button } from "@mui/material";
 import Logo from "../assets/Group 13.png";
-// import "./AdminForm.css";
+import "./AdminForm.css";
 
 const AdminForm = () => {
   const navigate = useNavigate();
@@ -81,12 +81,14 @@ const AdminForm = () => {
               )}
             />
           </div>
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="outlined" color="inherit">
             Login
           </Button>
         </form>
         <Link to="/login" className="back-link">
-          User login here
+          <Button variant="text" color="inherit">
+            User Login
+          </Button>
         </Link>
       </div>
     </div>
