@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import "./AuthForm.css";
 import LogoImage from "../assets/Group 13.png";
+import backgroundImage from "../assets/hospital.png";
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -65,6 +66,15 @@ const AuthForm = () => {
       <Paper
         elevation={3}
         className={`container ${isSignUpMode ? "sign-up-mode" : ""}`}
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <img src={LogoImage} alt="Logo" className="logo" />
         <Grid container>

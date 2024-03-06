@@ -2,8 +2,8 @@
 
 .container {
   position: relative;
-  /* width: 1000vh; */
-  /* background-color: #aaa; */
+  background-size: cover; /* Adjust to your needs */
+  background-repeat: no-repeat;
   min-height: 85vh;
   overflow: hidden;
 }
