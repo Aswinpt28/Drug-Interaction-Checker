@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button } from "@mui/material";
-import Logo from "../assets/Group 13.png";
+import Logo from "../../assets/Group 13.png";
 import "./AdminForm.css";
 
 const AdminForm = () => {
@@ -20,7 +20,7 @@ const AdminForm = () => {
 
       if (response.status === 200 || response.status === 201) {
         console.log(response.data);
-        navigate("/");
+        navigate("/admindash");
       } else {
         console.error(response.data.message);
       }

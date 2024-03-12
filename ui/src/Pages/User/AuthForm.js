@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import "./AuthForm.css";
-import LogoImage from "../assets/Group 13.png";
-import backgroundImage from "../assets/hospital.png";
+import LogoImage from "../../assets/Group 13.png";
+import backgroundImage from "../../assets/hospital.png";
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -81,7 +81,6 @@ const AuthForm = () => {
           <Grid item xs={12}>
             <div className="forms-container">
               <div className="signin-signup">
-                {/* Sign In Form */}
                 <form onSubmit={handleSubmit} className="sign-in-form">
                   <Typography variant="h5">Sign in</Typography>
                   <TextField
@@ -108,18 +107,11 @@ const AuthForm = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <Button
-                    type="submit"
-                    // fullWidth
-                    variant="outlined"
-                    color="inherit"
-                    className="btn solid"
-                  >
+                  <Button type="submit" variant="outlined" color="inherit">
                     Login
                   </Button>
                 </form>
 
-                {/* Sign Up Form */}
                 <form onSubmit={handleSubmit} className="sign-up-form">
                   <Typography variant="h5">Sign up</Typography>
                   <TextField
@@ -158,13 +150,7 @@ const AuthForm = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <Button
-                    type="submit"
-                    // fullWidth
-                    variant="outlined"
-                    color="inherit"
-                    className="btn"
-                  >
+                  <Button type="submit" variant="outlined" color="inherit">
                     Sign up
                   </Button>
                 </form>

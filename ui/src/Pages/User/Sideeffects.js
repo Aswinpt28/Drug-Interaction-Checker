@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Container, Button, Alert } from "react-bootstrap";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import Footer from "../components/Footer2";
-import Navbar from "../components/Navbar";
+import Footer from "../../components/Footer2";
+import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import "./side.css";
-import doc from "../assets/doctor.png";
+import doc from "../../assets/doctor.png";
 
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState("Paracetamol");

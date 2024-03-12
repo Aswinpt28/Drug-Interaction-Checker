@@ -23,7 +23,7 @@ body {
 }
 
 .bg-image {
-  background-image: url("../assets/doctor.png");
+  background-image: url("../../assets/doctor.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

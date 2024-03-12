@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Footer from "../components/Footer2";
-import Navbar from "../components/Navbar";
+import Footer from "../../components/Footer2";
+import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import "./Med.css";
-import doc from "../assets/doctor.png";
+import doc from "../../assets/doctor.png";
 
 const SearchForm = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");

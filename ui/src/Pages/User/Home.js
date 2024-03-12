@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer2";
-import doc from "../assets/hospital.png";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer2";
+import doc from "../../assets/hospital.png";
 import { Container, Row, Col } from "react-bootstrap";
-import logo1 from "../assets/medical.png";
-import logo2 from "../assets/preventive.png";
-import logo3 from "../assets/microscope.png";
-import logo4 from "../assets/cardiogram.png";
-import logo5 from "../assets/pill.png";
+import logo1 from "../../assets/medical.png";
+import logo2 from "../../assets/preventive.png";
+import logo3 from "../../assets/microscope.png";
+import logo4 from "../../assets/cardiogram.png";
+import logo5 from "../../assets/pill.png";
 import Button from "@mui/material/Button";
 
 const Home = () => {
