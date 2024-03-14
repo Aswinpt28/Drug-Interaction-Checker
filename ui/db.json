@@ -1,0 +1,29 @@
+{
+    "doctors": [
+        {
+            "id": "1",
+            "name": "Dr. John Doe",
+            "specialty": "Cardiology"
+        },
+        {
+            "id": "2",
+            "name": "Dr. Jane Smith",
+            "specialty": "Pediatrics"
+        },
+        {
+            "id": "3",
+            "name": "Dr. Alex Johnson",
+            "specialty": "Orthopedics"
+        },
+        {
+            "id": "79ee",
+            "name": "Tony Joseph",
+            "specialty": "Ent"
+        },
+        {
+            "name": "Abhimanyu",
+            "specialty": "Ent",
+            "id": "88dd"
+        }
+    ]
+}

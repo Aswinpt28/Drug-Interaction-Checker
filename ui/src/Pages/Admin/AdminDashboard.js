@@ -1,145 +1,233 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../../components/sidebar";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import AdditionalContent from "../../components/AdditionalContent";
+
+const meetings = [
+  {
+    patientName: "John Doe",
+    doctorName: "Dr. Smith",
+
+    date: "March 20, 2024",
+    time: "2:00 PM - 3:30 PM",
+  },
+  {
+    patientName: "Jane Doe",
+    doctorName: "Dr. Johnson",
+
+    date: "March 21, 2024",
+    time: "3:30 PM - 5:00 PM",
+  },
+];
 
 const AdminDashboard = () => {
-  const containerStyle = {
-    padding: "20px",
-    marginTop: "20px",
-  };
-
-  const colorfulPaperStyle = {
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-    height: "100%",
-    backgroundColor: "#f2f2f2",
-  };
-
-  const colorfulTypographyStyle = {
-    color: "#3498db",
-  };
-
-  const colorfulListItemStyle = {
-    backgroundColor: "#ecf0f1",
-  };
-
-  const patientList = [
-    {
-      id: 1,
-      name: "John Doe",
-      age: 45,
-      gender: "Male",
-      diagnosis: "Hypertension",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      age: 32,
-      gender: "Female",
-      diagnosis: "Diabetes",
-    },
-  ];
-
-  const doctorsList = [
-    { id: 1, name: "Dr. Smith", specialization: "Cardiologist" },
-    { id: 2, name: "Dr. Johnson", specialization: "Endocrinologist" },
-  ];
-
-  const medicineList = [
-    { id: 1, name: "Aspirin", dosage: "75mg", stock: 100 },
-    { id: 2, name: "Metformin", dosage: "500mg", stock: 150 },
-  ];
-
   return (
-    <div>
-      {/* <AppBar position="static" style={{ background: "white" }} elevation={0}>
-        <Toolbar></Toolbar>
-      </AppBar> */}
-
+    <div style={{ display: "flex", fontFamily: "Arial, sans-serif" }}>
       <Sidebar />
-      <Container maxWidth="md" style={containerStyle}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} className="p-4" style={colorfulPaperStyle}>
-              <Typography
-                variant="h4"
-                component="h2"
-                gutterBottom
-                style={colorfulTypographyStyle}
-              >
-                Patient List
-              </Typography>
-              <List>
-                {patientList.map((patient) => (
-                  <ListItem key={patient.id} style={colorfulListItemStyle}>
-                    <ListItemText
-                      primary={patient.name}
-                      secondary={`Age: ${patient.age} - Gender: ${patient.gender} - Diagnosis: ${patient.diagnosis}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} className="p-4" style={colorfulPaperStyle}>
-              <Typography
-                variant="h4"
-                component="h2"
-                gutterBottom
-                style={colorfulTypographyStyle}
-              >
-                Doctors List
-              </Typography>
-              <List>
-                {doctorsList.map((doctor) => (
-                  <ListItem key={doctor.id} style={colorfulListItemStyle}>
-                    <ListItemText
-                      primary={doctor.name}
-                      secondary={`Specialization: ${doctor.specialization}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
 
-      <Container maxWidth="md" style={containerStyle}>
-        <Paper elevation={3} className="p-4 mt-4" style={colorfulPaperStyle}>
-          <Typography
-            variant="h4"
-            component="h2"
-            gutterBottom
-            style={colorfulTypographyStyle}
-          >
-            Medicine List
-          </Typography>
-          <List>
-            {medicineList.map((medicine) => (
-              <ListItem key={medicine.id} style={colorfulListItemStyle}>
-                <ListItemText
-                  primary={medicine.name}
-                  secondary={`Dosage: ${medicine.dosage} - Stock: ${medicine.stock}`}
+      <div style={{ flex: 1 }}>
+        <Container className="mt-5" style={{ marginLeft: "195px" }}>
+          <Row className="justify-content-center align-items-center">
+            <Col md={6}>
+              <Row>
+                <Col md={6}>
+                  <div
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      padding: "20px",
+                      marginBottom: "20px",
+                      textAlign: "center",
+                      background: "#ffffff51",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        margin: 0,
+                        color: "#3498db",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Doctors
+                    </h3>
+
+                    <div style={{ marginTop: "10px" }}>
+                      <div style={{ marginBottom: "15px" }}>
+                        <strong>Dr. John Doe</strong>
+                        <div>Specialty: Cardiology</div>
+                        <div>Location: New York</div>
+                      </div>
+
+                      <div style={{ marginBottom: "15px" }}>
+                        <strong>Dr. Jane Smith</strong>
+                        <div>Specialty: Pediatrics</div>
+                        <div>Location: Los Angeles</div>
+                      </div>
+
+                      <div>
+                        <strong>Dr. Alex Johnson</strong>
+                        <div>Specialty: Neurology</div>
+                        <div>Location: Chicago</div>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+
+                <Col md={6}>
+                  <div
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      padding: "20px",
+                      marginBottom: "20px",
+                      textAlign: "center",
+                      background: "#ffffff51",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        margin: 0,
+                        color: "#2ecc71",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Users
+                    </h3>
+
+                    <div style={{ marginTop: "10px" }}>
+                      <div style={{ marginBottom: "15px" }}>
+                        <strong>User 1</strong>
+                        <div>Email: user1@example.com</div>
+                        <div>Role: Admin</div>
+                      </div>
+
+                      <div style={{ marginBottom: "15px" }}>
+                        <strong>User 2</strong>
+                        <div>Email: user2@example.com</div>
+                        <div>Role: Moderator</div>
+                      </div>
+
+                      <div>
+                        <strong>User 3</strong>
+                        <div>Email: user3@example.com</div>
+                        <div>Role: Member</div>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={12}>
+                  <div
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      padding: "20px",
+                      textAlign: "center",
+                      background: "#ffffff51",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        margin: 0,
+                        color: "#e74c3c",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Medicine Content
+                    </h3>
+
+                    <div style={{ marginTop: "10px" }}>
+                      <div style={{ marginBottom: "15px" }}>
+                        <strong>Medicine A</strong>
+                        <div>Type: Painkiller | Dosage: 500mg</div>
+                      </div>
+
+                      <div style={{ marginBottom: "15px" }}>
+                        <strong>Medicine B</strong>
+                        <div>Type: Antibiotic | Dosage: 250mg</div>
+                      </div>
+
+                      <div>
+                        <strong>Medicine C</strong>
+                        <div>Type: Anti-inflammatory | Dosage: 100mg</div>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+            {/* <Col md={1}></Col> */}
+            <Col md={3}>
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  padding: "20px",
+                  textAlign: "center",
+                  background: "#ffffff51",
+                }}
+              >
+                <img
+                  src="https://placekitten.com/150/150"
+                  alt="Profile"
+                  style={{ borderRadius: "50%", marginBottom: "20px" }}
                 />
-              </ListItem>
-            ))}
-          </List>
-        </Paper>
-      </Container>
-      <div>
-        <AdditionalContent />
+                <h3 style={{ color: "#3498db", marginBottom: "10px" }}>
+                  Poocha ser
+                </h3>
+                <p style={{ color: "#95a5a6", marginBottom: "20px" }}>
+                  Kitten Developer
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur consectetur.
+                </p>
+              </div>
+            </Col>
+          </Row>
+          <Row className="mt-3 mb-5" style={{ marginLeft: "170px" }}>
+            <Col md={10}>
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  padding: "20px",
+                  textAlign: "center",
+                  background: "#ffffff51",
+                }}
+              >
+                <h3 style={{ color: "#3498db", marginBottom: "10px" }}>
+                  Meeting Schedules
+                </h3>
+
+                <ul style={{ listStyleType: "none", padding: 0 }}>
+                  {meetings.map((meeting, index) => (
+                    <li key={index} style={{ marginBottom: "20px" }}>
+                      <h4 style={{ color: "#3498db", marginBottom: "10px" }}>
+                        Meeting {index + 1}
+                      </h4>
+                      <div>
+                        <strong>Patient Name:</strong> {meeting.patientName}
+                        <strong> Doctor Name:</strong> {meeting.doctorName}
+                      </div>
+                      <div>
+                        <strong>Date:</strong> {meeting.date}
+                        <strong> Time:</strong> {meeting.time}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import {
   Paper,
 } from "@mui/material";
 import axios from "axios";
-import "./AuthForm.css";
+import "./userStyles/AuthForm.css";
 import LogoImage from "../../assets/Group 13.png";
 import backgroundImage from "../../assets/hospital.png";
 

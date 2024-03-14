@@ -2,14 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer2";
-import doc from "../../assets/hospital.png";
-import { Container, Row, Col } from "react-bootstrap";
+import doc from "../../assets/hospital2.png";
+import { Container, Grid, Button, Typography } from "@mui/material";
+
 import logo1 from "../../assets/medical.png";
 import logo2 from "../../assets/preventive.png";
 import logo3 from "../../assets/microscope.png";
 import logo4 from "../../assets/cardiogram.png";
 import logo5 from "../../assets/pill.png";
-import Button from "@mui/material/Button";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,23 +25,43 @@ const Home = () => {
   };
 
   const handleSignUp = () => {
-    navigate("/login");
+    navigate("/signup");
+  };
+
+  const handleDrugsClick = () => {
+    navigate("/details/:id");
+  };
+
+  const handleNewDrugsClick = () => {
+    navigate("/newdrugs");
+  };
+
+  const handleMedicalNewsClick = () => {
+    navigate("/medicalnews");
+  };
+
+  const handleHistoryClick = () => {
+    navigate("/history");
+  };
+
+  const handleAlertsClick = () => {
+    navigate("/alerts");
   };
 
   const logosWithText = [
-    { logo: logo1, text: "1" },
-    { logo: logo2, text: "2" },
-    { logo: logo3, text: "3" },
-    { logo: logo4, text: "4" },
-    { logo: logo5, text: "5" },
+    { logo: logo1, text: "Interaction ", onClick: handleDrugsClick },
+    { logo: logo2, text: "Pill Identifier", onClick: handleNewDrugsClick },
+    { logo: logo3, text: "Side Effects", onClick: handleMedicalNewsClick },
+    { logo: logo4, text: "New Drugs", onClick: handleHistoryClick },
+    { logo: logo5, text: "Appointment", onClick: handleAlertsClick },
   ];
 
   const buttonTexts = [
-    "Drugs",
-    "New Drugs",
-    "Medical News",
-    "History",
-    "Alerts",
+    { text: "Drugs", onClick: handleDrugsClick },
+    { text: "New Drugs", onClick: handleNewDrugsClick },
+    { text: "Medical News", onClick: handleMedicalNewsClick },
+    { text: "History", onClick: handleHistoryClick },
+    { text: "Alerts", onClick: handleAlertsClick },
   ];
 
   return (
@@ -53,7 +73,7 @@ const Home = () => {
         handleSignUp={handleSignUp}
       />
 
-      <Container fluid>
+      <Container>
         <div
           style={{
             backgroundImage: `url(${doc})`,
@@ -71,13 +91,18 @@ const Home = () => {
             padding: "40px 0",
           }}
         >
-          <h1 style={{ color: "#23408E", fontSize: "2.5rem" }}>
+          <Typography variant="h3" style={{ color: "#23408E" }}>
             Drugs and Conditions
-          </h1>
+          </Typography>
 
-          <Row className="justify-content-center mt-4">
-            {logosWithText.map(({ logo, text }, index) => (
-              <Col key={index}>
+          <Grid
+            container
+            justifyContent="center"
+            spacing={4}
+            style={{ marginTop: "20px" }}
+          >
+            {logosWithText.map(({ logo, text, onClick }, index) => (
+              <Grid item key={index}>
                 <div
                   style={{
                     margin: "0 20px",
@@ -88,6 +113,7 @@ const Home = () => {
                     borderRadius: "8px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                   }}
+                  onClick={onClick}
                 >
                   <img
                     src={logo}
@@ -98,64 +124,63 @@ const Home = () => {
                       marginBottom: "10px",
                     }}
                   />
-                  <p style={{ color: "#000", margin: 0, fontSize: "1.2rem" }}>
+                  <Typography variant="subtitle1" style={{ color: "#000" }}>
                     {text}
-                  </p>
+                  </Typography>
                 </div>
-              </Col>
+              </Grid>
             ))}
-          </Row>
+          </Grid>
 
-          <h2
-            style={{
-              color: "#23408E",
-              marginBottom: "20px",
-              marginTop: "50px",
-              fontSize: "2rem",
-            }}
+          <Typography
+            variant="h4"
+            style={{ color: "#23408E", marginTop: "50px" }}
           >
             Browse by Site
-          </h2>
+          </Typography>
 
-          <Row className="justify-content-center">
-            {buttonTexts.map((text, index) => (
-              <Col key={index} xs={12} sm={6} md={4} lg={2}>
+          <Grid
+            container
+            justifyContent="center"
+            spacing={4}
+            style={{ marginTop: "20px" }}
+          >
+            {buttonTexts.map(({ text, onClick }, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4} lg={2}>
                 <Button
-                  style={{
-                    margin: "0 10px",
-                    width: "200px",
-                    // backgroundColor: "#23408E",
+                  sx={{
+                    width: "100%",
                     color: "#2c2c2c",
-                    // padding: "10px 20px",
-                    // borderRadius: "30px",
-                    cursor: "pointer",
-                    border: "none",
                     fontSize: "15px",
+                    "@media (max-width: 600px)": {
+                      fontSize: "12px",
+                      padding: "10px",
+                    },
                   }}
-                  variant="text"
+                  variant="outlined"
                   color="inherit"
-                  onClick={() => console.log(`${text} clicked`)}
+                  onClick={onClick}
                 >
                   {text}
                 </Button>
-              </Col>
+              </Grid>
             ))}
-          </Row>
+          </Grid>
 
-          <h2
-            style={{
-              color: "#23408E",
-              marginBottom: "20px",
-              marginTop: "50px",
-              fontSize: "2rem",
-            }}
+          <Typography
+            variant="h4"
+            style={{ color: "#23408E", marginTop: "50px" }}
           >
             About Us
-          </h2>
+          </Typography>
         </div>
 
-        <Row className="justify-content-between" style={{ padding: "20px" }}>
-          <Col xs={12} sm={6} lg={5}>
+        <Grid
+          container
+          justifyContent="space-between"
+          style={{ padding: "20px" }}
+        >
+          <Grid item xs={12} sm={6} lg={5}>
             <div
               style={{
                 backgroundColor: "#ffffff",
@@ -164,28 +189,21 @@ const Home = () => {
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <h3 style={{ color: "#23408E", fontSize: "1.8rem" }}>
+              <Typography variant="h5" style={{ color: "#23408E" }}>
                 What Sets Us Apart
-              </h3>
-              <p style={{ margin: "20px 0", fontSize: "1.2rem" }}>
+              </Typography>
+              <Typography variant="body1" style={{ margin: "20px 0" }}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor{" "}
-              </p>
-              <div>
-                <h1
-                  style={{
-                    margin: "20px 0",
-                    color: "#0074d9",
-                    fontSize: "2rem",
-                  }}
-                >
-                  200+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000+
-                </h1>
-              </div>
+                eiusmod tempor
+              </Typography>
+              <Typography variant="h3" style={{ color: "#0074d9" }}>
+                200+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000+
+              </Typography>
             </div>
-          </Col>
+          </Grid>
 
-          <Col xs={12} sm={6} lg={5}>
+          <Grid item xs={12} sm={6} lg={5}>
             <div
               style={{
                 backgroundColor: "rgba(25, 69, 218, 0.05)",
@@ -194,12 +212,9 @@ const Home = () => {
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <h4
-                style={{
-                  textAlign: "justify",
-                  fontWeight: "normal",
-                  fontSize: "1.2rem",
-                }}
+              <Typography
+                variant="body1"
+                style={{ textAlign: "justify", fontSize: "1.2rem" }}
               >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -208,10 +223,10 @@ const Home = () => {
                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                 nulla pariatur. Excepteur sint occaecat cupidatat non proident,
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </h4>
+              </Typography>
             </div>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       </Container>
 
       <Footer />

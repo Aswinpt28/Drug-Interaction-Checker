@@ -1,7 +1,7 @@
 .admin-container {
-  max-width: 600px; /* Increase the max-width */
-  width: 80%; /* Adjust the width */
-  height: 400px; /* Adjust the height */
+  max-width: 600px;
+  width: 80%;
+  height: 400px;
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;

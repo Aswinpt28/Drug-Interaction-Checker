@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../../components/Footer2";
 import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import "./Med.css";
+import "./userStyles/Med.css";
 import doc from "../../assets/doctor.png";
 
 const SearchForm = ({ onSearch }) => {

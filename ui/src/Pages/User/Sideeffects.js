@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Container, Button, Alert } from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
 import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
 import axios from "axios";
 import Footer from "../../components/Footer2";
 import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import "./side.css";
-import doc from "../../assets/doctor.png";
+import Image from "../../assets/hospital.png";
 
 const SearchForm = () => {
-  const [searchTerm, setSearchTerm] = useState("Paracetamol");
+  const [searchTerm, setSearchTerm] = useState();
   const [sideEffects, setSideEffects] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -48,7 +48,6 @@ const SearchForm = () => {
               seriousness: reaction.seriousness || "Not specified",
               dateOfOnset:
                 reaction.patient?.reactionmeddrapt || "Not specified",
-              // Add more relevant fields as needed
             };
           });
 
@@ -72,70 +71,61 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${Image})`,
+        backgroundSize: "fit",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
       <Navbar
         isAuthenticated={userToken}
         handleLogout={handleLogout}
         handleSignIn={handleSignIn}
         handleSignUp={handleSignUp}
       />
-      <div
+      <Container
         style={{
-          backgroundImage: `url(${doc})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          minHeight: "calc(70vh - 60px)",
+          marginTop: "10px",
           display: "flex",
+          justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          color: "#000",
-          marginTop: "65px",
         }}
       >
-        <Container
+        <TextField
           style={{
-            marginTop: "10px",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center",
+            marginBottom: "8px",
           }}
-        >
-          <TextField
-            style={{
-              marginBottom: "8px",
-            }}
-            label="Enter Medicine Name"
-            variant="outlined"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <Button variant="outlined" color="inherit" onClick={handleSearch}>
-            Search
-          </Button>
+          label="Enter Medicine Name"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Button variant="outlined" color="inherit" onClick={handleSearch}>
+          Search
+        </Button>
 
-          {error && <Alert variant="danger">{error}</Alert>}
+        {error && <Alert variant="danger">{error}</Alert>}
 
-          {sideEffects.length > 0 && (
-            <div className="mt-3">
-              <h5>Side Effects:</h5>
-              <ul>
-                {sideEffects.map((effect, index) => (
-                  <li key={index}>
-                    <strong>{effect.sideEffect}</strong> - Occurrences:{" "}
-                    {effect.occurrences}, Seriousness: {effect.seriousness},
-                    Date of Onset: {effect.dateOfOnset}
-                    {/* Add more details as needed */}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </Container>
-      </div>
+        {sideEffects.length > 0 && (
+          <div className="mt-3">
+            <h5>Side Effects:</h5>
+            <ul>
+              {sideEffects.map((effect, index) => (
+                <li key={index}>
+                  <strong>{effect.sideEffect}</strong> - Occurrences:{" "}
+                  {effect.occurrences}, Seriousness: {effect.seriousness}, Date
+                  of Onset: {effect.dateOfOnset}
+                  {/* Add more details as needed */}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </Container>
       <Footer />
     </div>
   );

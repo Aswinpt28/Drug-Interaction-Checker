@@ -18,15 +18,17 @@ export default function App() {
       <section className="">
         <div className="text-center text-md-start mt-5">
           <MDBRow className="mt-3">
-            <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4">
+            <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4 ">
               <div>
                 <img
                   src={Guard}
                   alt="Company Logo"
-                  className="guard img-fluid"
+                  className="guard img-fluid mt-2"
+                  style={{ maxWidth: "250px" }}
                 />
               </div>
-              <p>
+
+              <p className="mt-3">
                 Experience a revolution in healthcare with tailored software
                 solutions crafted to seamlessly address the distinctive
                 requirements of your medical practice. Let us elevate your
@@ -35,51 +37,73 @@ export default function App() {
               </p>
             </MDBCol>
 
-            <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
+            <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4 mt-3">
               <h6 className="text-uppercase fw-bold mb-4">Quick Links</h6>
               <p>
-                <Link className="text-reset text-decoration-none">Home</Link>
+                <Link to="/" className="text-reset text-decoration-none">
+                  Home
+                </Link>
               </p>
               <p>
-                <Link className="text-reset text-decoration-none">
+                <Link
+                  to="/services"
+                  className="text-reset text-decoration-none"
+                >
                   Services
                 </Link>
               </p>
               <p>
-                <Link className="text-reset text-decoration-none">Doctors</Link>
+                <Link to="/doctors" className="text-reset text-decoration-none">
+                  Doctors
+                </Link>
               </p>
               <p>
-                <Link className="text-reset text-decoration-none">
+                <Link
+                  to="/premium-assistance"
+                  className="text-reset text-decoration-none"
+                >
                   Premium Assistance
                 </Link>
               </p>
             </MDBCol>
 
-            <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
+            <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4 mt-3">
               <h6 className="text-uppercase fw-bold mb-4">Our Products</h6>
               <p>
-                <Link className="text-reset text-decoration-none">
+                <Link
+                  to="/scanners"
+                  className="text-reset text-decoration-none"
+                >
                   Scanners 3D
                 </Link>
               </p>
               <p>
-                <Link className="text-reset text-decoration-none">
+                <Link
+                  to="/cad-software"
+                  className="text-reset text-decoration-none"
+                >
                   CAD software
                 </Link>
               </p>
               <p>
-                <Link className="text-reset text-decoration-none">
+                <Link
+                  to="/impression-3d"
+                  className="text-reset text-decoration-none"
+                >
                   Impression 3D
                 </Link>
               </p>
               <p>
-                <Link className="text-reset text-decoration-none">
+                <Link
+                  to="/consumables"
+                  className="text-reset text-decoration-none"
+                >
                   Consumables
                 </Link>
               </p>
             </MDBCol>
 
-            <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
+            <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-3 mt-3">
               <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
               <p>
                 <FaHome className="me-2" />
@@ -101,7 +125,7 @@ export default function App() {
       </section>
 
       <div
-        className="text-center p-4"
+        className="text-center p-3"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
         <div className="row align-items-center">

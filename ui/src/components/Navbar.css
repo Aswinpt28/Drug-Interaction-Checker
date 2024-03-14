@@ -1,14 +1,129 @@
-.link {
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-white-transparent {
+  background-color: #ffffff;
+}
+.my-text {
+  font-size: 0.75rem;
+}
+.drawer {
+  .MuiDrawer-paper {
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.drawer-content {
+  padding: 20px;
+}
+
+.drawer-content .navbar-nav .nav-item {
+  margin-bottom: 10px;
+}
+
+.drawer-content .navbar-nav .nav-link {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
   text-decoration: none;
-  color: inherit;
+  transition: color 0.3s ease;
 }
 
-.navbar {
-  background-color: #f8f8f8;
+.drawer-content .navbar-nav .nav-link:hover {
+  color: #007bff;
 }
 
-.navbar {
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
+.drawer-content .navbar-nav .nav-link.active {
+  font-weight: bold;
+}
+
+.drawer-content .navbar-nav .nav-link.active::before {
+  content: ">";
+  margin-right: 5px;
+}
+
+.drawer-footer {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.drawer-footer .nav-item {
+  margin-bottom: 10px;
+}
+
+.drawer-footer .nav-link {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.drawer-footer .nav-link:hover {
+  color: #007bff;
+}
+/* Add more CSS for the drawer */
+.drawer-content {
+  padding: 20px;
+}
+
+.drawer-content .navbar-nav .nav-item {
+  margin-bottom: 10px;
+}
+
+.drawer-content .navbar-nav .nav-link {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.drawer-content .navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+.drawer-footer {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.drawer-footer .nav-item {
+  margin-bottom: 10px;
+}
+
+.drawer-footer .nav-link {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.drawer-footer .nav-link:hover {
+  color: #007bff;
+}
+
+.drawer-avatar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.drawer-avatar .avatar {
+  margin-right: 10px;
+}
+
+.drawer-logout {
+  display: flex;
+  align-items: center;
+}
+
+.drawer-logout .logout-button {
+  margin-right: 10px;
 }

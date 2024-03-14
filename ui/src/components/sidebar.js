@@ -8,7 +8,10 @@ import {
   ListItemText,
   Button,
 } from "@mui/material";
-import { BsPeopleFill, BsHouse, BsFillPersonFill } from "react-icons/bs";
+import { FaUserMd } from "react-icons/fa";
+import { BsPeopleFill } from "react-icons/bs";
+import { BiCalendarEvent } from "react-icons/bi";
+import { GiPill } from "react-icons/gi";
 import { useAuth } from "./AuthContect";
 import Guard from "../assets/Group 13.png";
 
@@ -19,12 +22,12 @@ function Sidebar() {
   const styles = {
     sidebar: {
       gridArea: "sidebar",
-      backgroundColor: "#2c2c2c",
+      backgroundColor: "black",
       overflowY: "auto",
       transition: "all 0.5s",
       WebkitTransition: "all 0.5s",
-      // height: "50px",
-      // position: "fixed",
+      height: "50px",
+      position: "fixed",
     },
     header: {
       display: "flex",
@@ -65,7 +68,7 @@ function Sidebar() {
       marginRight: "10px",
     },
     logoutButton: {
-      marginTop: "450px",
+      marginTop: "400px",
       width: "180px",
       marginLeft: "14px",
     },
@@ -81,7 +84,12 @@ function Sidebar() {
       variant="permanent"
       id="sidebar"
       className="sidebar-responsive"
-      sx={styles.sidebar}
+      style={{
+        backgroundColor: "black",
+        overflowY: "auto",
+        transition: "all 0.5s",
+        WebkitTransition: "all 0.5s",
+      }}
     >
       <div style={styles.header}>
         <Link to="/admindash" style={styles.headerLink}>
@@ -91,19 +99,26 @@ function Sidebar() {
       <List sx={styles.sidebarList}>
         {[
           {
-            to: "/database-management",
-            text: "Database",
-            icon: <BsHouse style={styles.sidebarIcon} />,
+            to: "/doctors",
+            text: "Doctors",
+            icon: <FaUserMd style={styles.sidebarIcon} color="#23408E" />,
           },
           {
-            to: "/user-management",
+            to: "/user",
             text: "Users",
-            icon: <BsPeopleFill style={styles.sidebarIcon} />,
+            icon: <BsPeopleFill style={styles.sidebarIcon} color="#880808" />,
           },
           {
-            to: "/consultation",
-            text: "Consultation",
-            icon: <BsFillPersonFill style={styles.sidebarIcon} />,
+            to: "/meetings",
+            text: "Meetings",
+            icon: (
+              <BiCalendarEvent style={styles.sidebarIcon} color="#23408E" />
+            ),
+          },
+          {
+            to: "/medicine",
+            text: "Medicine",
+            icon: <GiPill style={styles.sidebarIcon} color="#880808" />,
           },
         ].map((item, index) => (
           <ListItem
