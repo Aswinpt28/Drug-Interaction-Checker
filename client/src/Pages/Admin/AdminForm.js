@@ -14,13 +14,13 @@ const AdminForm = () => {
   const handleLogin = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/admin/login",
+        "http://localhost:5000/api/auth/admin/login",
         data
       );
 
       if (response.status === 200 || response.status === 201) {
         console.log(response.data);
-        navigate("/admindash");
+        navigate("/admin/admindash");
       } else {
         console.error(response.data.message);
       }

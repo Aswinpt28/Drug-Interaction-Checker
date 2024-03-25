@@ -1,100 +1,62 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Button, Box } from "@mui/material";
-import Alert from "@mui/material/Alert";
+import { TextField, Button, Typography, Container } from "@mui/material";
 import axios from "axios";
 
-import "./userStyles/side.css";
-
-const SearchForm = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+const App = () => {
+  const [medicineName, setMedicineName] = useState("");
   const [sideEffects, setSideEffects] = useState([]);
-  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSearch = async () => {
     try {
-      const apiKey = "P30dxdlyu6Cuhgi4s94o56DhEWziKaXvLQUekNQA";
-
       const response = await axios.get(
-        `https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:${searchTerm}&limit=10`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
+        `http://localhost:5000/api/medicine/sideeffects?name=${medicineName}`
       );
-
-      if (
-        response.data &&
-        response.data.results &&
-        response.data.results.length > 0
-      ) {
-        const adverseEvents = response.data.results.map((result) => ({
-          reactions: result.patient.reaction
-            .map((reaction) => reaction.reactionmeddrapt)
-            .join(", "), // Join reactions into a string
-        }));
-
-        setSideEffects(adverseEvents);
-        setError(null);
+      setSideEffects(response.data.sideEffects);
+      setErrorMessage("");
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setErrorMessage("Medicine not found");
       } else {
-        setError("No adverse events found for the given medicine name.");
-        setSideEffects([]);
+        setErrorMessage("Server Error");
       }
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setError("Error fetching adverse events. Please try again.");
       setSideEffects([]);
     }
   };
 
   return (
-    <div>
-      <Container maxWidth="md" className="mt-customs">
-        <Box mt={5}>
-          <Typography variant="h4" align="center" gutterBottom>
-            Adverse Events Search
-          </Typography>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            mt={3}
-          >
-            <TextField
-              label="Enter Medicine Name"
-              variant="outlined"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSearch}
-              sx={{ ml: 2 }}
-            >
-              Search
-            </Button>
-          </Box>
-          {error && (
-            <Alert severity="error" sx={{ mt: 3 }}>
-              {error}
-            </Alert>
-          )}
-          {sideEffects.length > 0 && (
-            <Box mt={3}>
-              <Typography variant="h6">Adverse Events:</Typography>
-              <ul>
-                {sideEffects.map((event, index) => (
-                  <li key={index}>{event.reactions}</li>
-                ))}
-              </ul>
-            </Box>
-          )}
-        </Box>
-      </Container>
-    </div>
+    <Container style={{ marginTop: "150px", marginBottom: "135px" }}>
+      <Typography variant="h4" gutterBottom>
+        Search Medicine Side Effects
+      </Typography>
+      <TextField
+        label="Medicine Name"
+        variant="outlined"
+        value={medicineName}
+        onChange={(e) => setMedicineName(e.target.value)}
+        fullWidth
+        margin="normal"
+      />
+      <Button variant="contained" color="primary" onClick={handleSearch}>
+        Search
+      </Button>
+      {errorMessage && (
+        <Typography variant="body1" color="error">
+          {errorMessage}
+        </Typography>
+      )}
+      {sideEffects.length > 0 && (
+        <div>
+          <Typography variant="h6">Side Effects:</Typography>
+          <ul>
+            {sideEffects.map((effect, index) => (
+              <li key={index}>{effect}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </Container>
   );
 };
 
-export default SearchForm;
+export default App;

@@ -170,7 +170,7 @@ const AuthForm = () => {
                   </Button>
                 </form>
 
-                <Link to="/admin" className="admin-link">
+                <Link to="/adminf" className="admin-link">
                   <Button variant="text" color="inherit">
                     Admin Login
                   </Button>

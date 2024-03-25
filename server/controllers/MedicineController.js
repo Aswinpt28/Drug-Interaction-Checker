@@ -1,12 +1,23 @@
 const Medicine = require("../models/Medicine");
 
-exports.getSideEffects = async (req, res) => {
-  const { medicineName } = req.body;
+exports.saveMedicine = async (req, res) => {
+  try {
+    const { name, sideEffects } = req.body;
+    const medicine = new Medicine({ name, sideEffects });
+    await medicine.save();
+    res.status(201).json({ message: "Drug saved successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-  console.log("Medicine Name:", medicineName);
+exports.getSideEffects = async (req, res) => {
+  const { name } = req.query; // Use req.query to access query parameters
+
+  console.log("Medicine Name:", name);
 
   try {
-    const medicine = await Medicine.findOne({ name: medicineName });
+    const medicine = await Medicine.findOne({ name: name });
     console.log("Medicine:", medicine);
 
     if (!medicine) {

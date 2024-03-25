@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import AuthForm from "./Pages/User/AuthForm";
 import Home from "./Pages/User/Home";
-import Admin from "./Pages/Admin/AdminForm";
+import AdminF from "./Pages/Admin/AdminForm";
 import Interaction from "./Pages/User/Interaction";
 import Sideeffects from "./Pages/User/Sideeffects";
 import Pill from "./Pages/User/Pill";
@@ -14,7 +14,7 @@ import NewDrugs from "./Pages/User/NewDrugs";
 import Details from "./Pages/User/MedicineDetailsPage";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import Consultation from "./Pages/Admin/Meetings";
-import UserManagement from "./Pages/Admin/User";
+import User from "./Pages/Admin/User";
 import MedicalNews from "./Pages/User/MedicalNews";
 import Medicine from "./Pages/Admin/Medicine";
 import Appointment from "./Pages/User/Appointment";
@@ -64,7 +64,7 @@ const App = () => {
     } else if (user.user_type === "admin" && Layout === AdminLayout) {
       return children;
     } else {
-      return <Navigate to="/login" />; // Redirect to home or handle unauthorized access
+      return <Navigate to="/login" />;
     }
   };
 
@@ -110,22 +110,6 @@ const App = () => {
           element: <MedicalNews />,
         },
         {
-          path: "/user/usermanagement",
-          element: <UserManagement />,
-        },
-        {
-          path: "/user/meetings",
-          element: <Consultation />,
-        },
-        {
-          path: "/user/admindash",
-          element: <AdminDashboard />,
-        },
-        {
-          path: "/user/medicine",
-          element: <Medicine />,
-        },
-        {
           path: "/user/homep",
           element: <HomePage />,
         },
@@ -144,8 +128,24 @@ const App = () => {
       ),
       children: [
         {
-          path: "/admin/page",
-          element: <div>admin page</div>,
+          path: "/admin/user",
+          element: <User />,
+        },
+        {
+          path: "/admin/meetings",
+          element: <Consultation />,
+        },
+        {
+          path: "/admin/admindash",
+          element: <AdminDashboard />,
+        },
+        {
+          path: "/admin/medicine",
+          element: <Medicine />,
+        },
+        {
+          path: "/admin/doctor",
+          element: <Medicine />,
         },
       ],
     },
@@ -156,6 +156,10 @@ const App = () => {
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/adminf",
+      element: <AdminF />,
     },
     // {
     //   path: '*',
