@@ -5,6 +5,7 @@ const drugSchema = new mongoose.Schema({
   dosage: String,
   indication: String,
   dateOfIssue: Date,
+  symptoms: String,
 });
 
 const Drug = mongoose.model("Drug", drugSchema);

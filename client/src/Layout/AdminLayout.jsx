@@ -1,12 +1,28 @@
-import React from 'react'
-import {  Outlet } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Sidebar from "../components/sidebar";
+import { makeRequest } from "../Axios";
+import { AuthContext } from "../Context/AuthContext";
 
 const AdminLayout = () => {
-    return (
-        <main>
-            <Outlet />
-        </main>
-    )
-}
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(AuthContext);
 
-export default AdminLayout
+  const handleLogout = () => {
+    makeRequest.get("/auth/logout").then(() => {
+      setUser(null);
+      navigate("/adminlogin");
+    });
+  };
+
+  return (
+    <>
+      <Sidebar handleLogout={handleLogout} />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
+};
+
+export default AdminLayout;

@@ -3,8 +3,14 @@ const Drug = require("../models/AddDrugs");
 
 exports.saveDrug = async (req, res) => {
   try {
-    const { drugName, dosage, indication, dateOfIssue } = req.body;
-    const drug = new Drug({ drugName, dosage, indication, dateOfIssue });
+    const { drugName, dosage, indication, dateOfIssue, symptoms } = req.body;
+    const drug = new Drug({
+      drugName,
+      dosage,
+      indication,
+      dateOfIssue,
+      symptoms,
+    });
     await drug.save();
     res.status(201).json({ message: "Drug saved successfully" });
   } catch (error) {

@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import "./userStyles/UserPage.css";
 import { Button } from "@mui/material";
-import cat from "../../assets/cat.jpg";
+import cat from "../../assets/user.png";
+
+import { makeRequest } from "../../Axios";
 
 function UserPage() {
+  const [profileData, setProfileData] = useState();
+
+  useEffect(() => {
+    makeRequest
+      .get("/user/getuser")
+      .then((res) => {
+        setProfileData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div>
       <Container className="mt-custom">
@@ -22,80 +37,89 @@ function UserPage() {
             </div>
           </Col>
 
-          <Col md={6}>
-            <div className="second-col-content">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <img
-                  src={cat}
-                  alt="Pr"
-                  style={{ width: "75px", height: "75px", borderRadius: "50%" }}
-                />
-                <div style={{ marginLeft: "10px" }}>
-                  <h5 style={{ margin: "0" }}>Poocha Damu</h5>
-                  <p style={{ margin: "0" }}>Kit Hub</p>
+          {profileData && (
+            <Col md={6}>
+              <div className="second-col-content">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    src={cat}
+                    alt="Pr"
+                    style={{
+                      width: "75px",
+                      height: "75px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <div style={{ marginLeft: "10px" }}>
+                    <h5 style={{ margin: "0" }}>{profileData.username}</h5>
+                    <p style={{ margin: "0" }}>{profileData.email}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="second-col-content">
-              <div>
-                <h4 style={{ display: "inline" }}>Personal Information</h4>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  style={{ marginLeft: "10px" }}
-                >
-                  Edit
-                </Button>
-                <br />
-                <br />
+              <div className="second-col-content">
                 <div>
-                  <p>
-                    &nbsp;&nbsp;&nbsp; Username
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Poocha Damu
-                  </p>
-                  <p>
-                    &nbsp;&nbsp;&nbsp; Profession
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Kit Hub
-                  </p>
-                  <p>
-                    &nbsp;&nbsp;&nbsp; Email
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    johndoe@example.com
-                  </p>
-                  <p>
-                    &nbsp;&nbsp;&nbsp; Phone
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+1234567890
-                  </p>
-                  <p>
-                    &nbsp;&nbsp;&nbsp; Password
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp; ********
-                  </p>
+                  <h4 style={{ display: "inline" }}>Personal Information</h4>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Edit
+                  </Button>
+                  <br />
+                  <br />
+                  {profileData && (
+                    <div>
+                      <p>
+                        &nbsp;&nbsp;&nbsp; Username
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {profileData.username}
+                      </p>
+                      <p>
+                        &nbsp;&nbsp;&nbsp; Profession
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {profileData.profession}
+                      </p>
+                      <p>
+                        &nbsp;&nbsp;&nbsp; Email
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {profileData.email}
+                      </p>
+                      <p>
+                        &nbsp;&nbsp;&nbsp; Phone
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {profileData.phonenumber}
+                      </p>
+                      <p>
+                        &nbsp;&nbsp;&nbsp; Password
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp; ********
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-          </Col>
+            </Col>
+          )}
 
           <Col md={3} className="mt-5">
             <div className="third-col-content">

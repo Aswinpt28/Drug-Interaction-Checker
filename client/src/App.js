@@ -6,25 +6,29 @@ import {
 } from "react-router-dom";
 import AuthForm from "./Pages/User/AuthForm";
 import Home from "./Pages/User/Home";
-import AdminF from "./Pages/Admin/AdminForm";
 import Interaction from "./Pages/User/Interaction";
 import Sideeffects from "./Pages/User/Sideeffects";
 import Pill from "./Pages/User/Pill";
 import NewDrugs from "./Pages/User/NewDrugs";
 import Details from "./Pages/User/MedicineDetailsPage";
-import AdminDashboard from "./Pages/Admin/AdminDashboard";
-import Consultation from "./Pages/Admin/Meetings";
+// import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import Meeting from "./Pages/Admin/Meetings";
 import User from "./Pages/Admin/User";
-import MedicalNews from "./Pages/User/MedicalNews";
+import Doctor from "./Pages/Admin/Doctors";
 import Medicine from "./Pages/Admin/Medicine";
 import Appointment from "./Pages/User/Appointment";
-import HomePage from "./Pages/Doctor/Homep";
-import PatientList from "./Pages/Doctor/patientList";
 import Profile from "./Pages/User/profile";
 import UserLayout from "./Layout/UserLayout";
 import AdminLayout from "./Layout/AdminLayout";
 import { AuthContext } from "./Context/AuthContext";
 import { makeRequest } from "./Axios";
+import AdminForm from "./Pages/Admin/AdminForm";
+import MedicalNews from "./Pages/User/MedicalNews";
+import DocLogin from "./Pages/Doctor/DocLogin";
+import ScheduledMeetings from "./Pages/Doctor/ScheduledMeetings";
+import DoctorLayout from "./Layout/DoctorLayout";
+import Adddrugs from "./Pages/Admin/AddDrugs";
+import VideoCall from "./Pages/VideoCall";
 
 const App = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -63,6 +67,8 @@ const App = () => {
       return children;
     } else if (user.user_type === "admin" && Layout === AdminLayout) {
       return children;
+    } else if (user.user_type === "doctor" && Layout === DoctorLayout) {
+      return children;
     } else {
       return <Navigate to="/login" />;
     }
@@ -90,7 +96,7 @@ const App = () => {
           element: <Pill />,
         },
         {
-          path: "/user/appointment",
+          path: "/user/appoint",
           element: <Appointment />,
         },
         {
@@ -109,14 +115,6 @@ const App = () => {
           path: "/user/medicalnews",
           element: <MedicalNews />,
         },
-        {
-          path: "/user/homep",
-          element: <HomePage />,
-        },
-        {
-          path: "/user/patient",
-          element: <PatientList />,
-        },
       ],
     },
     {
@@ -127,25 +125,43 @@ const App = () => {
         </ProtectedRoute>
       ),
       children: [
+        // {
+        //   path: "/admin/admindash",
+        //   element: <AdminDashboard />,
+        // },
+        {
+          path: "/admin/doctors",
+          element: <Doctor />,
+        },
         {
           path: "/admin/user",
           element: <User />,
         },
         {
           path: "/admin/meetings",
-          element: <Consultation />,
-        },
-        {
-          path: "/admin/admindash",
-          element: <AdminDashboard />,
+          element: <Meeting />,
         },
         {
           path: "/admin/medicine",
           element: <Medicine />,
         },
         {
-          path: "/admin/doctor",
-          element: <Medicine />,
+          path: "/admin/adddrugs",
+          element: <Adddrugs />,
+        },
+      ],
+    },
+    {
+      path: "/doctor",
+      element: (
+        <ProtectedRoute layout={DoctorLayout}>
+          <DoctorLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/doctor/schedule",
+          element: <ScheduledMeetings />,
         },
       ],
     },
@@ -158,13 +174,17 @@ const App = () => {
       element: <Home />,
     },
     {
-      path: "/adminf",
-      element: <AdminF />,
+      path: "/adminlogin",
+      element: <AdminForm />,
     },
-    // {
-    //   path: '*',
-    //   element: <NotFound />,
-    // },
+    {
+      path: "/doclog",
+      element: <DocLogin />,
+    },
+    {
+      path: "/video",
+      element: <VideoCall />,
+    },
   ]);
 
   return (

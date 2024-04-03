@@ -13,15 +13,15 @@ exports.getUserProfile = async (req, res) => {
     }
 
     // Include additional user details in the response if needed
-    const userProfile = {
-      userId: user._id,
-      username: user.username,
-      email: user.email,
-      phonenumber: user.phonenumber,
-      role: user.role,
-    };
+    // const userProfile = {
+    //   userId: user._id,
+    //   username: user.username,
+    //   email: user.email,
+    //   phoneNumber: user.phonenumber, // Add any other fields you want to include
+    //   role: user.role,
+    // };
 
-    res.json(userProfile);
+    res.json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -30,13 +30,11 @@ exports.getUserProfile = async (req, res) => {
 
 exports.getUsersList = async (req, res) => {
   try {
-    // Ensure the user making the request is an admin
     if (req.user.role !== "admin") {
       return res.status(403).json({ message: "Permission denied" });
     }
 
-    // Fetch the list of users from the database
-    const users = await User.find({}, { password: 0 }); // Exclude the password field
+    const users = await User.find({}, { password: 0 });
 
     res.json(users);
   } catch (error) {

@@ -12,7 +12,7 @@ exports.saveMedicine = async (req, res) => {
 };
 
 exports.getSideEffects = async (req, res) => {
-  const { name } = req.query; // Use req.query to access query parameters
+  const { name } = req.query;
 
   console.log("Medicine Name:", name);
 

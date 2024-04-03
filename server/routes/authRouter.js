@@ -12,6 +12,10 @@ router.get("/logout", authController.userLogout);
 router.post("/admin/login", authController.adminLogin);
 router.post("/register", authController.register);
 router.post("/registerAdmin", authController.registerAdmin);
-router.get("/verify", authenticateUser.authenticateUser, authController.verifyToken);
+router.get(
+  "/verify",
+  authenticateUser.authenticateUser,
+  authController.verifyToken
+);
 
 module.exports = router;

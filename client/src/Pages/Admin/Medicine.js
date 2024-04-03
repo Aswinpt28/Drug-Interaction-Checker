@@ -1,66 +1,119 @@
-import React from "react";
-import { Table } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Sidebar from "../../components/sidebar";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+  Button,
+  Pagination,
+  PaginationItem,
+  Box,
+} from "@mui/material";
+import axios from "axios";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Divider from "@mui/material/Divider";
 
-const MedicineTableRow = ({ medicine }) => (
-  <tr key={medicine.id}>
-    <td>{medicine.id}</td>
-    <td>{medicine.name}</td>
-    <td>{medicine.dosage}</td>
-    <td>{medicine.manufacturer}</td>
-  </tr>
-);
+function App() {
+  const [medicines, setMedicines] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef();
 
-const App = () => {
-  const medicines = [
-    {
-      id: 1,
-      name: "Medicine 1",
-      dosage: "10mg",
-      manufacturer: "Manufacturer A",
-    },
-    {
-      id: 2,
-      name: "Medicine 2",
-      dosage: "20mg",
-      manufacturer: "Manufacturer B",
-    },
-    {
-      id: 3,
-      name: "Medicine 3",
-      dosage: "30mg",
-      manufacturer: "Manufacturer C",
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/medlist/all?page=${page}&limit=${limit}`
+        );
+        const newMedicines = response.data;
+        setMedicines((prevMedicines) => [...prevMedicines, ...newMedicines]);
+        setLoading(false);
+        if (newMedicines.length < limit) {
+          setHasMore(false);
+        }
+      } catch (error) {
+        console.error("Error fetching medicines:", error);
+        setLoading(false);
+      }
+    };
+
+    if (hasMore) {
+      fetchData();
+    }
+  }, [hasMore, limit, page]);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-2">
-          <Sidebar />
-        </div>
-        <div className="col-md-9">
-          <h2 className="mb-4">Medicine List</h2>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Dosage</th>
-                <th>Manufacturer</th>
-              </tr>
-            </thead>
-            <tbody>
-              {medicines.map((medicine) => (
-                <MedicineTableRow key={medicine.id} medicine={medicine} />
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      </div>
-    </div>
+    <Container sx={{ mt: 4, mr: 6 }}>
+      <Typography
+        variant="h4"
+        align="center"
+        fontFamily="'Nunito', sans-serif"
+        gutterBottom
+        color={"#23386f"}
+        sx={{ mb: 2 }}
+      >
+        Medicine List
+      </Typography>
+      <Divider
+        sx={{
+          margin: "12px 0",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        }}
+      />
+      <TableContainer
+        component={Paper}
+        elevation={10}
+        sx={{ borderRadius: 8, overflow: "hidden" }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {medicines.map((medicine, index) => (
+              <TableRow key={medicine._id}>
+                <TableCell>{medicine.name}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box mt={4} display="flex" justifyContent="center">
+        <Pagination
+          count={10}
+          page={page}
+          onChange={handlePageChange}
+          renderItem={(item) => (
+            <PaginationItem
+              component={Button}
+              slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+              {...item}
+            />
+          )}
+        />
+      </Box>
+      {loading && (
+        <Box mt={4} display="flex" justifyContent="center">
+          <CircularProgress />
+        </Box>
+      )}
+    </Container>
   );
-};
+}
 
 export default App;

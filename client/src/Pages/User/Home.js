@@ -36,6 +36,14 @@ const Home = () => {
     navigate("/user/details/:id");
   };
 
+  const handleCheckClick = () => {
+    navigate("/user/check");
+  };
+
+  const handlePillClick = () => {
+    navigate("/user/pill");
+  };
+
   const handleNewDrugsClick = () => {
     navigate("/user/newdrugs");
   };
@@ -44,41 +52,28 @@ const Home = () => {
     navigate("/user/medicalnews");
   };
 
-  const handleHistoryClick = () => {
-    navigate("/user/history");
-  };
-
-  const handleAlertsClick = () => {
-    navigate("/user/alerts");
-  };
-
-  const handleCheck = () => {
-    navigate("/user/check");
-  };
-  const handleAppoint = () => {
-    navigate("/user/appointment");
-  };
-  const handlePill = () => {
-    navigate("/user/pill");
-  };
-  const handleSide = () => {
+  const handleSideClick = () => {
     navigate("/user/side");
   };
 
+  const handleAppointClick = () => {
+    navigate("/user/appoint");
+  };
+
   const logosWithText = [
-    { logo: logo1, text: "Interaction ", onClick: handleCheck },
-    { logo: logo2, text: "Pill Identifier", onClick: handlePill },
-    { logo: logo3, text: "Side Effects", onClick: handleSide },
+    { logo: logo1, text: "Interaction ", onClick: handleCheckClick },
+    { logo: logo2, text: "Pill Identifier", onClick: handlePillClick },
+    { logo: logo3, text: "Side Effects", onClick: handleSideClick },
     { logo: logo4, text: "New Drugs", onClick: handleNewDrugsClick },
-    { logo: logo5, text: "Appointment", onClick: handleAppoint },
+    { logo: logo5, text: "Appointment", onClick: handleAppointClick },
   ];
 
   const buttonTexts = [
     { text: "Drugs", onClick: handleDrugsClick },
     { text: "New Drugs", onClick: handleNewDrugsClick },
     { text: "Medical News", onClick: handleMedicalNewsClick },
-    { text: "History", onClick: handleHistoryClick },
-    { text: "Alerts", onClick: handleAlertsClick },
+    { text: "Sideeffects", onClick: handleSideClick },
+    { text: "Appointments", onClick: handleAppointClick },
   ];
 
   return (
@@ -245,6 +240,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
+
       <Footer />
     </div>
   );

@@ -1,26 +1,31 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button } from "@mui/material";
 import Logo from "../../assets/Group 13.png";
 import "./AdminForm.css";
+import { makeRequest } from "../../Axios";
+import { AuthContext } from "../../Context/AuthContext";
 
 const AdminForm = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(AuthContext);
   const { handleSubmit, control, formState } = useForm();
   const { errors } = formState;
 
+  useEffect(() => {
+    if (user && user.user_type === "admin") {
+      navigate("/admin/doctors");
+    }
+  }, [navigate, user]);
+
   const handleLogin = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/admin/login",
-        data
-      );
+      const response = await makeRequest.post("/auth/admin/login", data);
 
       if (response.status === 200 || response.status === 201) {
-        console.log(response.data);
-        navigate("/admin/admindash");
+        setUser(response.data);
+        navigate("/admin/doctors");
       } else {
         console.error(response.data.message);
       }
@@ -39,21 +44,21 @@ const AdminForm = () => {
         <form onSubmit={handleSubmit(handleLogin)} className="admin-form">
           <div className="admin-input-field">
             <Controller
-              name="username"
+              name="email"
               control={control}
               defaultValue=""
               rules={{
-                required: "Username is required",
+                required: "email is required",
               }}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  type="text"
-                  label="Username"
+                  type="email"
+                  label="email"
                   variant="outlined"
                   fullWidth
-                  error={!!errors.username}
-                  helperText={errors.username?.message}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
                   style={{ marginBottom: "30px", marginTop: "10px" }}
                 />
               )}

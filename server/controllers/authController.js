@@ -7,16 +7,16 @@ dotenv.config();
 
 const handleLogin = async (req, res, role) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     const user = await (role === "user" ? User : Admin).findOne({
-      username,
+      email,
       role,
     });
 
     if (!user) {
       return res.status(401).json({
-        message: `Invalid username or password. ${role} not found.`,
+        message: `Invalid email or password. ${role} not found.`,
       });
     }
 
@@ -27,7 +27,7 @@ const handleLogin = async (req, res, role) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id, username: user.username, role: user.role },
+      { userId: user._id, email: user.email, role: user.role },
       process.env.SECRET
     );
 
@@ -39,7 +39,7 @@ const handleLogin = async (req, res, role) => {
     res.json({
       message: "Login successful",
       user_id: user._id,
-      user_name: user.username,
+      user_email: user.email,
       user_type: user.role,
     });
   } catch (error) {
@@ -58,10 +58,11 @@ exports.adminLogin = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const { username, password, email, phonenumber, role } = req.body;
+    const { username, password, email, profession, phonenumber, role } =
+      req.body;
 
     const existingUser = await User.findOne({
-      $or: [{ username }, { email }, { phonenumber }],
+      $or: [{ username }, { email }, { profession }, { phonenumber }],
     });
 
     if (existingUser) {
@@ -75,7 +76,13 @@ exports.register = async (req, res) => {
     const newUser =
       role === "admin"
         ? new Admin({ username, password: hashedPassword })
-        : new User({ username, password: hashedPassword, email, phonenumber });
+        : new User({
+            username,
+            password: hashedPassword,
+            profession,
+            phonenumber,
+            email,
+          });
 
     await newUser.save();
 
@@ -88,18 +95,18 @@ exports.register = async (req, res) => {
 
 exports.registerAdmin = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const existingAdmin = await Admin.findOne({ username });
+    const existingAdmin = await Admin.findOne({ email });
 
     if (existingAdmin) {
-      return res.status(400).json({ message: "Admin username already exists" });
+      return res.status(400).json({ message: "Admin email already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newAdmin = new Admin({
-      username,
+      email,
       password: hashedPassword,
     });
 
@@ -127,7 +134,7 @@ exports.verifyToken = (req, res) => {
     return res.status(200).json({
       msg: "authorization successful",
       user_id: req.userId,
-      user_name: req.username,
+      user_name: req.email,
       user_type: req.userRole,
     });
   }

@@ -1,81 +1,125 @@
 import React, { useState } from "react";
-import { Button, Container, TextField, Typography } from "@mui/material";
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./userStyles/inter.css";
+import {
+  TextField,
+  Button,
+  Typography,
+  Container,
+  Snackbar,
+  Box,
+} from "@mui/material";
+import { Alert } from "@mui/material";
+import { makeRequest } from "../../Axios";
 
-const DrugInteractionChecker = () => {
-  const [drug1, setDrug1] = useState("");
-  const [drug2, setDrug2] = useState("");
-  const [interactions, setInteractions] = useState([]);
-  const [loading, setLoading] = useState(false); // State to manage loading status
+const App = () => {
+  const [medicineInputs, setMedicineInputs] = useState([""]);
+  const [symptoms, setSymptoms] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleAddMedicine = () => {
+    setMedicineInputs([...medicineInputs, ""]);
+  };
+
+  const handleChange = (index, event) => {
+    const newMedicines = [...medicineInputs];
+    newMedicines[index] = event.target.value;
+    setMedicineInputs(newMedicines);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleCheckInteractions = async () => {
-    setLoading(true);
     try {
-      const url = `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${drug1}+${drug2}`;
-      const response = await axios.get(url);
-      const data = response.data;
-      if (data && data.fullInteractionTypeGroup) {
-        const interactions =
-          data.fullInteractionTypeGroup[0].fullInteractionType.map(
-            (interaction) => interaction.interactionPair[0].description
-          );
-        setInteractions(interactions);
-      } else {
-        setInteractions(["No interactions found."]);
-      }
+      const response = await makeRequest.post("interaction/check", {
+        medicines: medicineInputs.filter((medicine) => medicine.trim() !== ""),
+      });
+      setSymptoms(response.data.symptoms);
     } catch (error) {
-      console.error("Error fetching drug interactions:", error.message);
-    } finally {
-      setLoading(false);
+      setError(error.response.data.error);
+      setOpen(true);
     }
   };
 
   return (
-    <div>
-      <Container className="d-flex flex-column align-items-center justify-content-center mt-customs">
-        <Typography variant="h4" gutterBottom>
-          Drug Interaction Checker
-        </Typography>
-        <div className="mb-3">
+    <Container
+      maxWidth="sm"
+      style={{ marginTop: "130px", textAlign: "center", width: "500px" }}
+    >
+      <Typography
+        variant="h4"
+        gutterBottom
+        style={{ marginBottom: "20px", color: "#23408E" }}
+      >
+        Drug Interaction Checker
+      </Typography>
+      <Typography
+        variant="body1"
+        sx={{ textAlign: "center", marginBottom: "24px" }}
+      >
+        Enter the names of the medicines you are currently taking in the fields
+        below. Our interaction checker will analyze your medications to identify
+        potential drug interactions and provide information about possible
+        symptoms.
+      </Typography>
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        flexWrap="wrap"
+        marginBottom="20px"
+      >
+        {medicineInputs.map((medicine, index) => (
           <TextField
-            label="Enter first drug name"
+            key={index}
+            label={`Medicine ${index + 1}`}
+            value={medicine}
+            onChange={(event) => handleChange(index, event)}
             variant="outlined"
-            value={drug1}
-            onChange={(e) => setDrug1(e.target.value)}
+            margin="normal"
+            style={{
+              marginRight: "10px",
+              marginBottom: "10px",
+              width: "200px",
+            }}
           />
-        </div>
-        <div className="mb-3">
-          <TextField
-            label="Enter second drug name"
-            variant="outlined"
-            value={drug2}
-            onChange={(e) => setDrug2(e.target.value)}
-          />
-        </div>
-        <Button
-          variant="outlined"
-          color="inherit"
-          onClick={handleCheckInteractions}
-          disabled={loading} // Disable button while loading
+        ))}
+      </Box>
+      <Button
+        variant="text"
+        color="secondary"
+        onClick={handleAddMedicine}
+        style={{ marginBottom: "20px" }}
+      >
+        Add Medicine
+      </Button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Button
+        variant="outlined"
+        color="inherit"
+        onClick={handleCheckInteractions}
+        style={{ marginBottom: "20px" }}
+      >
+        Check Interactions
+      </Button>
+      {symptoms && (
+        <Typography
+          variant="body1"
+          gutterBottom
+          style={{ marginBottom: "20px" }}
         >
-          {loading ? "Checking..." : "Check Interactions"}
-        </Button>
-
-        {Array.isArray(interactions) && interactions.length > 0 && (
-          <div className="mt-3">
-            <Typography variant="h6">Interactions:</Typography>
-            <ul>
-              {interactions.map((interaction, index) => (
-                <li key={index}>{interaction}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </Container>
-    </div>
+          Symptoms: {symptoms}
+        </Typography>
+      )}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          {error}
+        </Alert>
+      </Snackbar>
+    </Container>
   );
 };
 
-export default DrugInteractionChecker;
+export default App;

@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const Doctor = require("../models/doctor");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const addDoctor = async (req, res) => {
   const { name, specialization, phoneNumber, email } = req.body;
@@ -36,6 +38,10 @@ const addDoctor = async (req, res) => {
   }
 };
 
+// Import dotenv to access environment variables
+
+// Inside the loginDoctor function
+
 const loginDoctor = async (req, res) => {
   const { email, temporaryPassword } = req.body;
 
@@ -61,11 +67,31 @@ const loginDoctor = async (req, res) => {
         .json({ success: false, message: "Invalid password" });
     }
 
+    const doctorData = {
+      userId: doctor.id,
+      username: doctor.name,
+      role: doctor.role,
+    };
+
+    // Generate JWT token
+    const token = jwt.sign(doctorData, process.env.SECRET, {
+      expiresIn: "1h", // Set the expiry time for the cookie
+    });
+
+    // Set the token as a cookie in the response
+    res.cookie("authToken", token, {
+      httpOnly: true, // Ensures cookie is not accessible via client-side JavaScript
+      secure: process.env.NODE_ENV === "production", // Ensures cookie is only sent over HTTPS in production
+      sameSite: "strict", // Protects against cross-site request forgery (CSRF) attacks
+      maxAge: 3600000, // Expires in 1 hour (optional)
+    });
+
     // Doctor authenticated successfully
     res.status(200).json({
       success: true,
       message: "Doctor authenticated successfully",
       doctor,
+      token,
     });
   } catch (err) {
     console.error(err);

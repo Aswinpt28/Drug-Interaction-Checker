@@ -23,6 +23,7 @@ const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phonenumber, setPhone] = useState("");
+  const [profession, setProfession] = useState("");
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -48,7 +49,6 @@ const AuthForm = () => {
         username,
         email,
         password,
-        phonenumber,
       });
 
       if (response.status === 200 || response.status === 201) {
@@ -91,12 +91,13 @@ const AuthForm = () => {
                     margin="normal"
                     required
                     fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
+                    id="email"
+                    label="email"
+                    name="email"
+                    type="email"
                     autoFocus
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <TextField
                     variant="outlined"
@@ -146,10 +147,22 @@ const AuthForm = () => {
                     margin="normal"
                     required
                     fullWidth
-                    id="phone"
+                    name="profession"
+                    label="profession"
+                    type="text"
+                    id="profession"
+                    value={profession}
+                    onChange={(e) => setProfession(e.target.value)}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="phoneNumber"
                     label="Phone Number"
-                    name="phone"
                     type="number"
+                    id="phone"
                     value={phonenumber}
                     onChange={(e) => setPhone(e.target.value)}
                   />
@@ -170,9 +183,14 @@ const AuthForm = () => {
                   </Button>
                 </form>
 
-                <Link to="/adminf" className="admin-link">
+                <Link to="/adminlogin" className="admin-link">
                   <Button variant="text" color="inherit">
                     Admin Login
+                  </Button>
+                </Link>
+                <Link to="/doclog" className="admin-link">
+                  <Button variant="text" color="inherit">
+                    Doctor Login
                   </Button>
                 </Link>
               </div>

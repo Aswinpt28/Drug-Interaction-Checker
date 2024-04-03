@@ -2,8 +2,9 @@ const Appointment = require("../models/book");
 
 exports.bookAppointment = async (req, res) => {
   try {
-    const { date, doctor, patient } = req.body;
-    const appointment = new Appointment({ doctor, date, patient });
+    const { date, doctor, meeting } = req.body;
+    const patient = req.userId;
+    const appointment = new Appointment({ doctor, date, patient, meeting });
     await appointment.save();
     res.status(201).json({ message: "Appointment booked successfully" });
   } catch (error) {
@@ -14,8 +15,26 @@ exports.bookAppointment = async (req, res) => {
 
 exports.getAllAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find();
-    res.status(200).json({ appointments: appointments });
+    let appointments;
+    // const doctorName = req.userData.name;
+
+    // if (doctorName) {
+    //   appointments = await Appointment.find({ doctor: doctorName });
+    // } else {
+    appointments = await Appointment.find()
+      .populate("doctor")
+      .populate("patient");
+
+    // }
+    const parsedData = appointments.map((appointment) => {
+      return {
+        _id: appointment._id,
+        patient: appointment.patient,
+        doctor: appointment.doctor?.name ?? null,
+        date: appointment.date,
+      };
+    });
+    res.status(200).json({ appointments: parsedData });
   } catch (error) {
     console.error("Error fetching appointments:", error);
     res.status(500).json({ error: "Failed to fetch appointments" });
