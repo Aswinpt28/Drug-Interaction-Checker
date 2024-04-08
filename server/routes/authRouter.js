@@ -9,6 +9,7 @@ router.use(cookieParser());
 
 router.post("/user/login", authController.userLogin);
 router.get("/logout", authController.userLogout);
+router.get("/adlogout", authController.adminLogout);
 router.post("/admin/login", authController.adminLogin);
 router.post("/register", authController.register);
 router.post("/registerAdmin", authController.registerAdmin);

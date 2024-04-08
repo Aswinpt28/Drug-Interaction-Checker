@@ -1,0 +1,20 @@
+﻿Medicine_A,Medicine_B,Dosage_A,Dosage_B,Interaction_Type,Severity,Reason
+Aspirin,Ibuprofen,100mg,200mg,Drug-Drug,Moderate,Increased risk of gastrointestinal bleeding due to dual inhibition of platelet aggregation
+Lisinopril,Amlodipine,10mg,5mg,Drug-Drug,Severe,Potential for severe hypotension due to additive blood pressure-lowering effects
+Metformin,Warfarin,500mg,2mg,Drug-Drug,Mild,Increased risk of bleeding due to potentiation of anticoagulant effect
+Simvastatin,Grapefruit,20mg,20mg,Drug-Food,Moderate,Increased systemic exposure to simvastatin due to inhibition of drug metabolism by grapefruit juice
+Acetaminophen,Alcohol,500mg,20mg,Drug-Alcohol,Severe,Enhanced risk of liver toxicity due to potentiation of acetaminophen's hepatotoxic effects by alcohol consumption
+Ciprofloxacin,Calcium,500mg,500mg,Drug-Drug,Severe,Reduced absorption of ciprofloxacin due to chelation with calcium ions
+Omeprazole,Clopidogrel,20mg,75mg,Drug-Drug,Moderate,Decreased efficacy of clopidogrel due to inhibition of its activation by omeprazole
+Levothyroxine,Iron,100mg,65mg,Drug-Nutrient,Mild,Reduced absorption of levothyroxine due to chelation with iron
+Fluoxetine,Tramadol,20mg,50mg,Drug-Drug,Severe,Serotonin syndrome risk due to additive serotonergic effects
+Diazepam,Grapefruit Juice,5mg,20mg,Drug-Food,Moderate,Increased systemic exposure to diazepam due to inhibition of drug metabolism by grapefruit juice
+Clopidogrel,Esomeprazole,75mg,20mg,Drug-Drug,Moderate,Decreased efficacy of clopidogrel due to inhibition of its activation by esomeprazole
+Alprazolam,Alcohol,1mg,N/A,Drug-Alcohol,Severe,Enhanced central nervous system depression due to additive effects of alprazolam and alcohol
+Digoxin,Verapamil,0.25mg,80mg,Drug-Drug,Severe,Potential for serious cardiac arrhythmias due to additive cardiac effects
+Furosemide,Potassium,40mg,20mg,Drug-Drug,Mild,Increased risk of hypokalemia due to potassium-wasting effects of furosemide
+Loratadine,Ketoconazole,10mg,200mg,Drug-Drug,Moderate,Increased systemic exposure to loratadine due to inhibition of drug metabolism by ketoconazole
+Metronidazole,Alcohol,500mg,20mg,Drug-Alcohol,Severe,Disulfiram-like reaction due to inhibition of acetaldehyde metabolism by metronidazole
+Warfarin,Cranberry Juice,2mg,20mg,Drug-Food,Mild,Potential for altered anticoagulant effect due to inhibition of warfarin metabolism by cranberry juice
+Atorvastatin,Grapefruit,10mg,20mg,Drug-Food,Moderate,Increased systemic exposure to atorvastatin due to inhibition of drug metabolism by grapefruit juice
+Amoxicillin,Probiotics,500mg,20mg,Drug-Supplement,Moderate,Reduced efficacy of amoxicillin due to interference with gut flora by probiotics

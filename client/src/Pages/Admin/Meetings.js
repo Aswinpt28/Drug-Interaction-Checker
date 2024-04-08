@@ -51,9 +51,11 @@ const AdminAppointments = () => {
               >
                 <div>
                   <Typography variant="h6" sx={{ mb: 1 }}>
-                    {appointment.doctor
-                      ? appointment.doctor.name
-                      : "Unknown Doctor"}
+                    {`Doctor: ${
+                      appointment.doctor
+                        ? appointment.doctor.name
+                        : "Unknown Doctor"
+                    }`}
                   </Typography>
                   <Typography
                     variant="subtitle1"
@@ -63,9 +65,8 @@ const AdminAppointments = () => {
                       ? appointment.patient.username
                       : "Unknown Patient"
                   }`}</Typography>
-                  {/* Add more appointment details here */}
                 </div>
-                <div>{/* Additional content */}</div>
+                <div></div>
               </CardContent>
             </Card>
           </Grid>

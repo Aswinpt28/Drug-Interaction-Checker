@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import dayjs from "dayjs"; // Import Day.js
 import { makeRequest } from "../../Axios";
 import { Card, CardContent, Typography, Grid, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -23,11 +24,17 @@ const AppointmentsComponent = () => {
   }, []);
 
   const handleLogout = () => {
-    navigate("/doclog");
+    navigate("/login");
   };
 
   const goToMeeting = (link) => {
     navigate(link);
+  };
+
+  const isAppointmentExpired = (appointmentTime) => {
+    const currentTime = dayjs(); // Get current date and time
+    const appointmentDateTime = dayjs(appointmentTime); // Convert appointment time to dayjs object
+    return currentTime.isAfter(appointmentDateTime);
   };
 
   return (
@@ -79,7 +86,9 @@ const AppointmentsComponent = () => {
                 <Card
                   style={{
                     height: "100%",
-                    backgroundColor: "#f9f9f9",
+                    backgroundColor: isAppointmentExpired(appointment.time)
+                      ? "#f0f0f0"
+                      : "#f9f9f9",
                     border: "1px solid #ddd",
                     borderRadius: "8px",
                     boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
@@ -94,7 +103,8 @@ const AppointmentsComponent = () => {
                       Appointment Details
                     </Typography>
                     <Typography variant="body2" gutterBottom>
-                      <strong>Time:</strong> {appointment.time}
+                      <strong>Date:</strong>{" "}
+                      {dayjs(appointment.date).format("YYYY-MM-DD HH:mm:ss")}
                     </Typography>
                     <Typography variant="body2" gutterBottom>
                       <strong>Patient:</strong>{" "}
@@ -102,15 +112,22 @@ const AppointmentsComponent = () => {
                         ? appointment.patient.username
                         : "N/A"}
                     </Typography>
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        goToMeeting(appointment.meeting);
-                      }}
-                      color="primary"
-                    >
-                      Join
-                    </Button>
+                    {isAppointmentExpired(appointment.time) ? (
+                      <Typography variant="body2" color="error">
+                        Expired
+                      </Typography>
+                    ) : (
+                      <Button
+                        size="small"
+                        onClick={() => {
+                          goToMeeting(appointment.meeting);
+                        }}
+                        color="primary"
+                        disabled={isAppointmentExpired(appointment.time)}
+                      >
+                        Join
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               </Grid>

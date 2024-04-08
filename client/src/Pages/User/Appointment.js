@@ -13,7 +13,7 @@ import { makeRequest } from "../../Axios";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
-const BookAppointmentPage = () => {
+const Appointment = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [date, setDate] = useState("");
@@ -63,6 +63,15 @@ const BookAppointmentPage = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    const selectedDateTime = new Date(date + "T" + time); // Combine date and time into a single Date object
+    const currentDate = new Date();
+
+    // Check if selected date and time are in the past
+    if (selectedDateTime < currentDate) {
+      setMessage("Cannot book appointment for a past date or time");
+      return;
+    }
+
     try {
       const response = await makeRequest.post("book/addappointments", {
         doctor: selectedDoctor,
@@ -172,51 +181,64 @@ const BookAppointmentPage = () => {
         My Appointments
       </Typography>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {appointments.map((appointment) => (
-          <Card
-            key={appointment._id}
-            variant="outlined"
-            sx={{
-              minWidth: "250px",
-              backgroundColor: "#ffffff",
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-              borderRadius: "8px",
-              padding: "16px",
-              transition: "box-shadow 0.3s ease",
-              "&:hover": {
-                boxShadow: "0px 8px 12px rgba(0, 0, 0, 0.2)",
-              },
-            }}
-          >
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                {appointment.doctor.name}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {dayjs(appointment.date).format("MMMM D, YYYY")} -{" "}
-                {dayjs(appointment.time, "HH:mm").format("h:mm A")}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" color="error">
-                Cancel
-              </Button>
-              <Button></Button>
-              <Button
-                size="small"
-                onClick={() => {
-                  goToMeeting(appointment.meeting);
-                }}
-                color="primary"
-              >
-                Join
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+        {appointments.map((appointment) => {
+          const appointmentDate = new Date(appointment.date);
+          const currentDate = new Date();
+          currentDate.setHours(0, 0, 0, 0);
+
+          const appointmentExpired = appointmentDate < currentDate;
+
+          return (
+            <Card
+              key={appointment._id}
+              variant="outlined"
+              sx={{
+                minWidth: "250px",
+                backgroundColor: "#ffffff",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                borderRadius: "8px",
+                padding: "16px",
+                transition: "box-shadow 0.3s ease",
+                "&:hover": {
+                  boxShadow: "0px 8px 12px rgba(0, 0, 0, 0.2)",
+                },
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  {appointment.doctor.name}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  {dayjs(appointment.date).format("MMMM D, YYYY")} -{" "}
+                  {dayjs(appointment.time, "HH:mm").format("h:mm A")}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" color="error">
+                  Cancel
+                </Button>
+                {appointmentExpired ? (
+                  <Typography variant="body2" color="textSecondary">
+                    Expired
+                  </Typography>
+                ) : (
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      goToMeeting(appointment.meeting);
+                    }}
+                    color="primary"
+                  >
+                    Join
+                  </Button>
+                )}
+              </CardActions>
+            </Card>
+          );
+        })}
       </div>
     </Container>
   );
 };
 
-export default BookAppointmentPage;
+export default Appointment;

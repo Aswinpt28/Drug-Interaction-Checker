@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -12,9 +12,10 @@ import {
 import { makeRequest } from "../../Axios";
 import { useNavigate, Link } from "react-router-dom";
 
-import DoctorIcon from "../../assets/doctor1.png"; // Import your doctor SVG icon
-
+import DoctorIcon from "../../assets/doctor1.png";
+import { AuthContext } from "../../Context/AuthContext";
 const LoginForm = () => {
+  const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [temporaryPassword, setTemporaryPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,10 +32,9 @@ const LoginForm = () => {
         email,
         temporaryPassword,
       });
-
-      alert(response.data.message);
-
-      if (response.data.success) {
+      console.log(response);
+      if (response.status === 200) {
+        setUser(response.data.doctor);
         navigate("/doctor/schedule");
       }
 
@@ -46,6 +46,13 @@ const LoginForm = () => {
       setError("Failed to login");
     }
   };
+
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      navigate("/doctor/schedule");
+    }
+  }, [user]);
 
   return (
     <Container maxWidth="sm">

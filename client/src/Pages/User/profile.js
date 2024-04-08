@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import "./userStyles/UserPage.css";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import cat from "../../assets/user.png";
 
 import { makeRequest } from "../../Axios";
@@ -28,10 +28,14 @@ function UserPage() {
           <Col md={3} className="mt-5">
             <div className="first-col">
               <div className="content-wrapper">
-                <h3>My Account</h3>
+                <Typography variant="h5" align="center">
+                  My Account
+                </Typography>
                 <div className="options">
-                  <div>Account Overview</div>
-                  <div>Med History</div>
+                  <Typography variant="body1" align="center">
+                    Account Overview
+                  </Typography>
+                  {/* <div>Med History</div> */}
                 </div>
               </div>
             </div>

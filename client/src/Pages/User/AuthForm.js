@@ -25,6 +25,7 @@ const AuthForm = () => {
   const [phonenumber, setPhone] = useState("");
   const [profession, setProfession] = useState("");
   const { user, setUser } = useContext(AuthContext);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (user && user.user_type === "user") {
@@ -40,13 +41,10 @@ const AuthForm = () => {
     alert(message);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignInSubmit = async (e) => {
     e.preventDefault();
-    const url = isSignUpMode ? "/auth/register" : "/auth/user/login";
-
     try {
-      const response = await makeRequest.post(url, {
-        username,
+      const response = await makeRequest.post("/auth/user/login", {
         email,
         password,
       });
@@ -58,8 +56,36 @@ const AuthForm = () => {
         showAlert(response.data.message);
       }
     } catch (error) {
-      console.error("Error during Axios request:", error);
-      showAlert("Error during Axios request");
+      console.error("Error during sign-in Axios request:", error);
+      showAlert("Error during sign-in Axios request");
+    }
+  };
+
+  const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await makeRequest.post("/auth/register", {
+        username,
+        email,
+        password,
+        profession,
+        phonenumber,
+        role: "user", // Ensure to set the role for user registration
+      });
+
+      if (response.status === 201) {
+        // Registration successful
+        showAlert("Registration successful");
+        // Redirect the user after successful registration
+        navigate("/");
+      } else {
+        // Registration failed
+        console.error(response.data.message);
+        showAlert("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during sign-up Axios request:", error);
+      showAlert("Error during sign-up. Please try again.");
     }
   };
 
@@ -84,52 +110,29 @@ const AuthForm = () => {
           <Grid item xs={12}>
             <div className="forms-container">
               <div className="signin-signup">
-                <form onSubmit={handleSubmit} className="sign-in-form">
-                  <Typography variant="h5">Sign in</Typography>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="email"
-                    name="email"
-                    type="email"
-                    autoFocus
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <Button type="submit" variant="outlined" color="inherit">
-                    Login
-                  </Button>
-                </form>
-
-                <form onSubmit={handleSubmit} className="sign-up-form">
-                  <Typography variant="h5">Sign up</Typography>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoFocus
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
+                <form
+                  onSubmit={
+                    isSignUpMode ? handleSignUpSubmit : handleSignInSubmit
+                  }
+                  className={isSignUpMode ? "sign-up-form" : "sign-in-form"}
+                >
+                  <Typography variant="h5">
+                    {isSignUpMode ? "Sign up" : "Sign in"}
+                  </Typography>
+                  {isSignUpMode && (
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoFocus
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  )}
                   <TextField
                     variant="outlined"
                     margin="normal"
@@ -142,30 +145,32 @@ const AuthForm = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="profession"
-                    label="profession"
-                    type="text"
-                    id="profession"
-                    value={profession}
-                    onChange={(e) => setProfession(e.target.value)}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="phoneNumber"
-                    label="Phone Number"
-                    type="number"
-                    id="phone"
-                    value={phonenumber}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
+                  {isSignUpMode && (
+                    <>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="profession"
+                        label="Profession"
+                        type="text"
+                        value={profession}
+                        onChange={(e) => setProfession(e.target.value)}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="phoneNumber"
+                        label="Phone Number"
+                        type="number"
+                        value={phonenumber}
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                    </>
+                  )}
                   <TextField
                     variant="outlined"
                     margin="normal"
@@ -174,15 +179,18 @@ const AuthForm = () => {
                     name="password"
                     label="Password"
                     type="password"
-                    id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Button type="submit" variant="outlined" color="inherit">
-                    Sign up
+                    {isSignUpMode ? "Sign up" : "Sign in"}
                   </Button>
                 </form>
-
+                <Button onClick={handleToggleMode}>
+                  {isSignUpMode
+                    ? "Already have an account? Sign in"
+                    : "Don't have an account? Sign up"}
+                </Button>
                 <Link to="/adminlogin" className="admin-link">
                   <Button variant="text" color="inherit">
                     Admin Login

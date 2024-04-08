@@ -17,6 +17,7 @@ const medicineRoutes = require("./routes/medicineRoutes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 5000;
+const axios = require("axios");
 
 dotenv.config();
 
@@ -40,6 +41,15 @@ app.use("/api/medlist", MedListRouter);
 app.use("/api/userlist", UserListRouter);
 app.use("/api/meetings", AppointmentRouter);
 app.use("/api", medicineRoutes);
+
+// axios
+//   .get("http://localhost:5000/api/data")
+//   .then((response) => {
+//     console.log(response.data);
+//   })
+//   .catch((error) => {
+//     console.error("Error fetching data from Flask API:", error);
+//   });
 
 // Connect to DB
 mongoose

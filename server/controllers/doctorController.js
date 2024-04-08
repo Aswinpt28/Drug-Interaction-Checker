@@ -38,10 +38,6 @@ const addDoctor = async (req, res) => {
   }
 };
 
-// Import dotenv to access environment variables
-
-// Inside the loginDoctor function
-
 const loginDoctor = async (req, res) => {
   const { email, temporaryPassword } = req.body;
 
@@ -55,7 +51,6 @@ const loginDoctor = async (req, res) => {
         .json({ success: false, message: "Doctor not found" });
     }
 
-    // Compare provided temporary password with hashed password in database
     const passwordMatch = await bcrypt.compare(
       temporaryPassword,
       doctor.password
@@ -73,25 +68,21 @@ const loginDoctor = async (req, res) => {
       role: doctor.role,
     };
 
-    // Generate JWT token
     const token = jwt.sign(doctorData, process.env.SECRET, {
-      expiresIn: "1h", // Set the expiry time for the cookie
+      expiresIn: "1h",
     });
 
-    // Set the token as a cookie in the response
     res.cookie("authToken", token, {
-      httpOnly: true, // Ensures cookie is not accessible via client-side JavaScript
-      secure: process.env.NODE_ENV === "production", // Ensures cookie is only sent over HTTPS in production
-      sameSite: "strict", // Protects against cross-site request forgery (CSRF) attacks
-      maxAge: 3600000, // Expires in 1 hour (optional)
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 3600000,
     });
 
-    // Doctor authenticated successfully
     res.status(200).json({
-      success: true,
-      message: "Doctor authenticated successfully",
-      doctor,
-      token,
+      msg: "authorization successful",
+      user_id: doctor.id,
+      user_type: doctor.role,
     });
   } catch (err) {
     console.error(err);
@@ -101,7 +92,6 @@ const loginDoctor = async (req, res) => {
 
 const getAllDoctors = async (req, res) => {
   try {
-    // Fetch all doctors from the database
     const doctors = await Doctor.find();
 
     res.status(200).json({ success: true, doctors });

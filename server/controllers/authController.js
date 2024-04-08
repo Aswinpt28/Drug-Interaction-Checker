@@ -129,6 +129,16 @@ exports.userLogout = (req, res) => {
   }
 };
 
+exports.adminLogout = (req, res) => {
+  try {
+    res.clearCookie("authToken");
+    return res.status(200).json({ message: "Successfully logged out" });
+  } catch (error) {
+    console.error("Error clearing cookie:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 exports.verifyToken = (req, res) => {
   if (req.userId) {
     return res.status(200).json({

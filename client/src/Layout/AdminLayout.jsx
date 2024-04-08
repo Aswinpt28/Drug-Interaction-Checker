@@ -11,7 +11,7 @@ const AdminLayout = () => {
   const handleLogout = () => {
     makeRequest.get("/auth/logout").then(() => {
       setUser(null);
-      navigate("/adminlogin");
+      navigate("/login");
     });
   };
 
